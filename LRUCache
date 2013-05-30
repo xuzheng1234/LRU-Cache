@@ -1,0 +1,83 @@
+import java.util.*;
+import java.util.Map.Entry;
+//capacity is always greater than zero
+
+ public class LRUCache {
+
+   
+    HashMap<String, Node> map = new HashMap<String, Node>();//cache
+    Linked_List queue=new Linked_List();
+    int capacity;
+   
+   
+    Entry<String, Node>[] e;
+
+    public LRUCache(int c) {
+        capacity = c;
+    }
+
+    public LRUCache() {
+        capacity = 1;
+    }
+
+    private void update(Node n) {
+        queue.removeNode(n);
+        queue.addLast(n);
+    }
+
+    public void set(String key, String data) {
+
+        Node n = map.get(key);
+        if (n != null) {
+            //cache hit
+            n.data = data;
+            update(n);
+        }
+        else
+        {
+            Node newNode=null;
+            if (queue.size >= capacity) {
+                newNode = queue.removeFirst();
+                map.remove(newNode.key);
+                newNode.key=key;
+                newNode.data=data;
+            }
+            else
+            {
+                  newNode=new Node(key,data);
+            }
+          
+            queue.addLast(newNode);
+            map.put(key, newNode);
+
+        }
+        
+    }
+    public String get(String key) {
+        Node n = map.get(key);
+        if (n == null) {
+            //cache miss
+            
+            return "NULL";
+        } else {
+            //cache hit
+           
+            String data=n.data;
+           
+            update(n);
+            return data;
+        }
+
+    }
+
+    public String peek(String key) {
+        Node n = map.get(key);
+        if (n == null) {
+            //cache miss
+            return "NULL";
+        } else {
+            //cache hit
+            return n.data;
+        }
+    }
+}
