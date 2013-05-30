@@ -1,0 +1,11 @@
+public class Node {
+       String data;
+        Node next;
+        Node prev;
+        String key;
+
+        public Node(String a, String d) {
+            key = a;
+            data = d;
+        }
+}
