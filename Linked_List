@@ -1,0 +1,69 @@
+public class Linked_List {
+    int size=0;
+    Node head;
+    Node tail;
+  
+    public Linked_List()
+    {
+        
+    }
+    
+    //append node to the end of the linked list
+    public void addLast(Node n)
+    {
+        size++;
+        if(head==null)
+        {
+            head=n;
+            tail=n;
+            n.prev=null;
+            n.next=null;
+        }
+        else
+        {
+            tail.next=n;
+            n.prev=tail;
+            n.next=null;
+            tail=tail.next;
+        }
+    }
+    public Node removeFirst()
+    {
+        if(head==null)
+            return null;
+        size--;
+        Node result=head;
+        
+            head=head.next;
+            if(head!=null)
+                head.prev=null;
+        
+        return result;
+    }
+    public void removeNode(Node n)
+    {
+        if(head==null)
+            return;
+        size--;
+        if(n==head)
+        {
+            head=head.next;
+            if(head!=null)
+                head.prev=null;
+        }
+        else
+        {
+            n.prev.next=n.next;
+        }
+        if(n==tail)
+        {
+            tail=tail.prev;
+            if(tail!=null)
+                tail.next=null;
+        }
+        else
+        {
+            n.next.prev=n.prev;
+        }
+    }
+}
